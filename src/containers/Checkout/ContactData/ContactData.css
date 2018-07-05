@@ -8,17 +8,6 @@
     text-align: center;
 }
 
-.ContactData form {
-    display: flex;
-    justify-content: space-around;
-    flex-flow: column;
-}
-
-.ContactData form input {
-    margin: 20px 0;
-    padding: 20px;
-}
-
 @media (min-width: 600px) {
     .ContactData {
         width: 500px;
