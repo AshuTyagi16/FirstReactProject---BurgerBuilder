@@ -3,11 +3,15 @@ import Auc from '../../../hoc/Auc/Auc';
 import Button from '../../UI/Button/Button';
 
 const orderSummary = (props) => {
-    const ingredientSummary = Object.keys(props.ingredients)
-        .map(igKey => {
-            return <li key={igKey}>
-                <span style={{textTransform: 'capitalize'}}> {igKey}</span> : {props.ingredients[igKey]}</li>
-        });
+    let ingredientSummary = null;
+
+    if (props.ingredients !== null) {
+        ingredientSummary = Object.keys(props.ingredients)
+            .map(igKey => {
+                return <li key={igKey}>
+                    <span style={{textTransform: 'capitalize'}}> {igKey}</span> : {props.ingredients[igKey]}</li>
+            });
+    }
 
     return (
         <Auc>

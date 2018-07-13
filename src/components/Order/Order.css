@@ -6,3 +6,18 @@
     margin: 10px auto;
     box-sizing: border-box;
 }
+
+.OrderIngredient {
+    width: 20%;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.OrderIngredientContainer {
+    display: flex;
+    flex-flow: row;
+    padding: 10px;
+    box-sizing: border-box;
+}
