@@ -15,13 +15,18 @@
     border: 1px solid #ccc;
     background-color: white;
     font: inherit;
-    box-sizing: border-box;
-    width: 100%;
-    display: block;
     padding: 6px 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .InputElement:focus {
     outline: none;
     background-color: #ccc;
+}
+
+.Invalid {
+    border: 1px solid red;
+    background-color: #FDA49A;
 }

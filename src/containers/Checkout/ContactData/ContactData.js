@@ -79,7 +79,7 @@ class ContactData extends Component {
             orderData: formData
         };
 
-        this.props.onOrderBurger(order);
+        this.props.onOrderBurger(order, this.props.token);
 
 
     };
@@ -103,7 +103,7 @@ class ContactData extends Component {
             })
         }
 
-        let form = (<form onSubmit={this.orderHandler}>
+        let form = (<form onSubmit={this.orderHandler} id="contactData">
             <strong>Enter Contact Data Here</strong>
             {formElementsArray.map(formElement => (
                 <Input
@@ -132,13 +132,14 @@ const mapStateToProps = state => {
     return {
         ingredients: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
-        loading: state.orders.loading
+        loading: state.orders.loading,
+        token: state.auth.token
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger: (order) => dispatch(actions.purchaseBurger(order))
+        onOrderBurger: (order, token) => dispatch(actions.purchaseBurger(order, token))
     }
 };
 
