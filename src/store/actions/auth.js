@@ -23,6 +23,9 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('expirationDate');
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -60,7 +63,9 @@ export const auth = (email, password, isSignUp) => {
         axios
             .post(url, authData)
             .then(response => {
-                console.log(response);
+                localStorage.setItem('userId', response.data.localId);
+                localStorage.setItem('token', response.data.idToken);
+                localStorage.setItem('expirationDate', new Date(new Date().getTime() + response.data.expiresIn * 1000));
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
@@ -68,4 +73,22 @@ export const auth = (email, password, isSignUp) => {
                 dispatch(authFail(error.response.data.error));
             });
     };
+};
+
+export const authCheckState = () => {
+    return dispatch => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+        if (!token) {
+            dispatch(logout());
+        } else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            if (expirationDate >= new Date()) {
+                dispatch(authSuccess(token, userId));
+                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+            } else {
+                dispatch(logout());
+            }
+        }
+    }
 };
